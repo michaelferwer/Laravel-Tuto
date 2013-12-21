@@ -81,3 +81,24 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+
+/*
+|----------------------------------------------------------------------------
+| Custom provider for Authentication
+|----------------------------------------------------------------------------
+|
+|
+|
+ */
+use Illuminate\Auth\Guard;
+require_once  app_path().'/authentication/UserProvider.php';
+use com\perso\Authentication\UserProvider;
+
+Auth::extend('custom-authentication', function()
+{
+    return new Guard(
+        new UserProvider(),
+        App::make('session.store')
+    );
+});

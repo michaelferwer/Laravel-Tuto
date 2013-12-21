@@ -17,13 +17,25 @@ class LoginController extends BaseController {
 
     public function index()
     {
-        $model = User::where('id', '=', 2)->first(); //OrFail
-        return View::make('login')->with('user', $model);
+        //$model = User::where('id', '=', 2)->first(); //OrFail
+        //return View::make('login')->with('user', $model);
+        return View::make('login');
     }
 
     public function authentication()
     {
-        echo "toto";
-    }
+        $user = array(
+            'email' => Input::get('email'),
+            'password' => Input::get('password')
+        );
 
+        if(Auth::attempt($user))
+            return View::make('login');
+        else
+            //return Redirect::to('/');
+            //return Redirect::action('UserController@profile', array('user' => 1));
+            return Redirect::action('LoginController@index');
+
+
+    }
 }

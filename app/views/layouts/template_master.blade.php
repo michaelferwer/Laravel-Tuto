@@ -11,14 +11,16 @@
     <!-- My style sheet -->
     <link rel="stylesheet" href="css/style.css">
 
-<!-- Script -->
-<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
-<script type="text/javascript" src="css/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/angular.min.js"></script>
+    <!-- Script -->
+    <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="css/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
 </head>
 
 <body>
 @if (Auth::check())
+
     @include('../header')
 @endif
 

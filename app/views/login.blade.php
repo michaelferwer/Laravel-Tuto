@@ -1,6 +1,54 @@
 @extends('layouts.template_master')
 
 @section('content')
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $('#login-form').validate({
+            rules: {
+                email: {
+                    minlength: 3,
+                    required: true,
+                    email:true
+                },
+                password: {
+                    minlength: 3,
+                    maxlength: 15,
+                    required: true
+                }
+            },
+            messages: {
+                email: {
+                    required: "email requis",
+                    email: "email n'est pas correct"
+                },
+                password: {
+                    required: "password requis"
+                }
+            },
+            highlight: function(element) {
+                $(element).closest('.input-form').addClass('has-error');
+            },
+            unhighlight: function(element) {
+                $(element).closest('.input-form').removeClass('has-error');
+            },
+            errorElement: 'div',
+            errorClass: 'help-block has-error',
+            errorPlacement: function(error, element) {
+                error.insertAfter(element.parent());
+            },
+            submitHandler: function(form) {
+                // form.submit();
+                $(form).ajaxSubmit();
+            },
+            invalidHandler: function(event, validator) {
+                // Some traitement here
+            }
+        });
+    });
+
+</script>
 <div class="login-form">
     <ul class="nav nav-tabs">
         <li class="active">
@@ -16,15 +64,21 @@
 
     <div class="tab-content">
         <div class="tab-pane fade in active" id="login">
-            <form action="authentication" method="post">
+
+            <div class="alert alert-warning">Some errors occurred</div>
+
+            <form id="login-form" action="authentication" method="post" >
+
                 <div class="input-group input-form">
                     <span class="input-group-addon glyphicon glyphicon-user"></span>
-                    <input type="text" class="form-control" placeholder="Username">
+                    <input name="email" type="text" class="form-control" placeholder="Email" pattern=".+">
                 </div>
+
                 <div class="input-group input-form">
                     <span class="input-group-addon glyphicon glyphicon-lock"></span>
-                    <input type="password" class="form-control" placeholder="Password">
+                    <input name="password" type="password" class="form-control" placeholder="Password" pattern=".+">
                 </div>
+
                 <button type="submit" class="btn btn-primary btn-lg btn-block btn-form">Sign In</button>
             </form>
         </div>
