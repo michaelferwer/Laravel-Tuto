@@ -5,6 +5,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
 
+        // à factoriser
         $('#login-form').validate({
             rules: {
                 email: {
@@ -34,13 +35,13 @@
                 $(element).closest('.input-form').removeClass('has-error');
             },
             errorElement: 'div',
-            errorClass: 'help-block has-error',
+            errorClass: 'control-label label-error',
             errorPlacement: function(error, element) {
                 error.insertAfter(element.parent());
             },
             submitHandler: function(form) {
-                // form.submit();
-                $(form).ajaxSubmit();
+                form.submit();
+                //$(form).ajaxSubmit();
             },
             invalidHandler: function(event, validator) {
                 // Some traitement here
@@ -65,9 +66,13 @@
     <div class="tab-content">
         <div class="tab-pane fade in active" id="login">
 
-            <div class="alert alert-warning">Some errors occurred</div>
+            @if ( isset($error) )
+                <div id="alert-danger-login" class="alert alert-danger">
+                    {{$error }}
+                </div>
+            @endif
 
-            <form id="login-form" action="authentication" method="post" >
+            <form id="login-form" action="authentication" method="post">
 
                 <div class="input-group input-form">
                     <span class="input-group-addon glyphicon glyphicon-user"></span>

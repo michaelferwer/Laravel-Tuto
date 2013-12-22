@@ -19,23 +19,38 @@ class LoginController extends BaseController {
     {
         //$model = User::where('id', '=', 2)->first(); //OrFail
         //return View::make('login')->with('user', $model);
-        return View::make('login');
+        $error = "Username or password are wrong";
+        return View::make('login',array('error' => $error));
     }
 
     public function authentication()
     {
-        $user = array(
-            'email' => Input::get('email'),
-            'password' => Input::get('password')
-        );
+        $error = "Username or password are wrong";
 
-        if(Auth::attempt($user))
-            return View::make('login');
-        else
-            //return Redirect::to('/');
-            //return Redirect::action('UserController@profile', array('user' => 1));
-            return Redirect::action('LoginController@index');
+        $validator = Validator::make(Input::all(), [
+            "email" => "required|email|min:3",
+            "password" => "required|min:3"
+        ]);
 
+        if ($validator->passes())
+        {
+            $credentials = [
+                'email' => Input::get('email'),
+                'password' => Input::get('password')
+            ];
 
+            if (Auth::attempt($credentials))
+            {
+                return View::make('login')->with('error', $error);
+            }
+            else{
+                //return Redirect::to('/');
+                //return Redirect::action('UserController@profile', array('user' => 1));
+                return Redirect::action('LoginController@index', array('error' => $error));
+            }
+        }
+        else{
+            return View::make('login')->with('error', $error);
+        }
     }
 }
