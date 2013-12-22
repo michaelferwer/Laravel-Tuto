@@ -19,8 +19,7 @@ class LoginController extends BaseController {
     {
         //$model = User::where('id', '=', 2)->first(); //OrFail
         //return View::make('login')->with('user', $model);
-        $error = "Username or password are wrong";
-        return View::make('login',array('error' => $error));
+        return View::make('login');
     }
 
     public function authentication()
