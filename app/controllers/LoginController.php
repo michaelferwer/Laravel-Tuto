@@ -15,16 +15,19 @@ class LoginController extends BaseController {
     |
     */
 
+    // GET action
     public function index()
     {
-        //$model = User::where('id', '=', 2)->first(); //OrFail
-        //return View::make('login')->with('user', $model);
-        return View::make('login');
+        return View::make('login')
+            ->with('error',Input::get('error'))
+            ->with('action',Input::get('action'));
     }
 
+    // POST action
     public function authentication()
     {
         $error = "Username or password are wrong";
+        $action = Input::get('action');
 
         $validator = Validator::make(Input::all(), [
             "email" => "required|email|min:3",
@@ -38,18 +41,22 @@ class LoginController extends BaseController {
                 'password' => Input::get('password')
             ];
 
+            // Essaye d'authentification l'utilisateur
             if (Auth::attempt($credentials))
             {
-                return View::make('login')->with('error', $error);
+                // Si une action est définie, rediriger l'utilisateur vers cette action
+                if($action != null)
+                    return Redirect::action($action);
+
+                return Redirect::action('HomeController@index');
             }
             else{
-                //return Redirect::to('/');
-                //return Redirect::action('UserController@profile', array('user' => 1));
-                return Redirect::action('LoginController@index', array('error' => $error));
+                // Dans le cas où l'authentification échoue et une action est définie
+                if($action != null)
+                    return Redirect::action('LoginController@index', array('error' => $error, 'action' => $action));
             }
         }
-        else{
-            return View::make('login')->with('error', $error);
-        }
+        // Dans tous les autres cas
+        return Redirect::action('LoginController@index', array('error' => $error));
     }
 }

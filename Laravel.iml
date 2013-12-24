@@ -13,6 +13,16 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library name="PHP">
+        <CLASSES>
+          <root url="file://C:/Utilitaires/Wamp/includes" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file://C:/Utilitaires/Wamp/includes" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
 

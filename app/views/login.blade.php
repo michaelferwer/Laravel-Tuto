@@ -76,13 +76,17 @@
 
                 <div class="input-group input-form">
                     <span class="input-group-addon glyphicon glyphicon-user"></span>
-                    <input name="email" type="text" class="form-control" placeholder="Email" pattern=".+">
+                    <input name="email" type="text" class="form-control" placeholder="Email">
                 </div>
 
                 <div class="input-group input-form">
                     <span class="input-group-addon glyphicon glyphicon-lock"></span>
-                    <input name="password" type="password" class="form-control" placeholder="Password" pattern=".+">
+                    <input name="password" type="password" class="form-control" placeholder="Password">
                 </div>
+
+                @if (isset($action))
+                    <input name="action" value="{{ $action }}" type="text" style="display:none;">
+                @endif
 
                 <button type="submit" class="btn btn-primary btn-lg btn-block btn-form">Sign In</button>
             </form>

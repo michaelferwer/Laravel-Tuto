@@ -1,5 +1,5 @@
 @extends('layouts.template_master')
 
 @section('content')
-Users!
+Vous êtez connecté
 @stop
