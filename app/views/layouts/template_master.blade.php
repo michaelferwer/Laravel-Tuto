@@ -20,11 +20,11 @@
 
 <body>
 @if (Auth::check())
-
     @include('../header')
 @endif
 
 @yield('content')
+
 @include('../footer')
 </body>
 </html>

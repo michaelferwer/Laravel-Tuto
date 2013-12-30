@@ -11,9 +11,12 @@
 |
 */
 
-Route::get('login', 'LoginController@index');
+Route::group(array('before' => 'guest'), function()
+{
+    Route::get('login', array('uses' => 'LoginController@index', 'as' => 'login'));
 
-Route::post('authentication',  'LoginController@authentication');
+    Route::post('authentication',  'LoginController@authentication');
+});
 
 Route::group(array('before' => 'auth'), function()
 {
@@ -21,3 +24,6 @@ Route::group(array('before' => 'auth'), function()
 
     Route::get('/', 'HomeController@index');
 });
+
+
+

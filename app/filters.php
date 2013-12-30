@@ -35,7 +35,7 @@ App::after(function($request, $response)
 
 Route::filter('auth', function($request)
 {
-	if (Auth::check())
+	if (!Auth::check())
         return Redirect::action('LoginController@index', array('action' => $request->getAction()));
 });
 

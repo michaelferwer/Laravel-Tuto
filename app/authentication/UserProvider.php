@@ -22,7 +22,7 @@ class UserProvider implements  UserProviderInterface {
      */
     public function retrieveById($identifier)
     {
-        return User::where('email', '=', $identifier)->first();
+        return User::where('id', '=', $identifier)->first();
     }
 
     /**
